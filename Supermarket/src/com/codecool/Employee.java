@@ -7,5 +7,7 @@ public class Employee extends Person {
         this.position = position;
     }
 
-    
+    public String getPosition() {
+        return position;
+    }
 }
