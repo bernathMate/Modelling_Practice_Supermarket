@@ -9,4 +9,16 @@ public class Person {
         this.gender = gender;
         this.age = age;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }
