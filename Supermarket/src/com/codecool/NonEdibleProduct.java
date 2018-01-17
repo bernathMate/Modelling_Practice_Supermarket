@@ -7,4 +7,7 @@ public class NonEdibleProduct extends Product {
         this.material = material;
     }
     
+    public String getMaterial() {
+        return material;
+    }
 }
