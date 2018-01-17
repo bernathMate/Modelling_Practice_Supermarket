@@ -8,4 +8,12 @@ public class EdibleProduct extends Product {
         this.calorie = calorie;
         this.isAlcohol = isAlcohol;
     }
+
+    public int getCalorie() {
+        return calorie;
+    }
+
+    public boolean getIsAlcohol() {
+        return isAlcohol;
+    }
 }
