@@ -7,5 +7,17 @@ public class Supermarket {
         this.name = name;
         persons = new Person[0];
         products = new Product[0];
-    } 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Person[] getPersons() {
+        return persons;
+    }
+
+    public Product[] getProducts() {
+        return products;
+    }
 }
