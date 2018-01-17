@@ -8,4 +8,12 @@ public class Customer extends Person {
         this.money = money;
         shoppingCart = new Product[30];
     }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public Product[] getShoppingCart() {
+        return shoppingCart;
+    }
 }
