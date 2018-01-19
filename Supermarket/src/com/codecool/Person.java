@@ -3,11 +3,13 @@ public class Person {
     private String fullName;
     private String gender;
     private int age;
+    private PersonType personType;
 
-    public Person(String fullName, String gender, int age) {
+    public Person(String fullName, String gender, int age, PersonType personType) {
         this.fullName = fullName;
         this.gender = gender;
         this.age = age;
+        this.personType = personType;
     }
 
     public String getFullName() {
