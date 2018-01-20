@@ -1,3 +1,5 @@
+package com.codecool;
+
 public class Customer extends Person {
 
     private int money;
@@ -15,5 +17,14 @@ public class Customer extends Person {
 
     public Product[] getShoppingCart() {
         return shoppingCart;
+    }
+
+    @Override
+    public String toString() {
+        return "Name= " + getFullName()
+                + ", Gender= " + getGender()
+                + ", Age= " + getAge()
+                + ", Money= " + getMoney()
+                + ", Person's type= " + getPersonType();
     }
 }
