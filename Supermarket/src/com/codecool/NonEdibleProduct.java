@@ -1,3 +1,5 @@
+package com.codecool;
+
 public class NonEdibleProduct extends Product {
 
     private String material;
@@ -9,5 +11,13 @@ public class NonEdibleProduct extends Product {
     
     public String getMaterial() {
         return material;
+    }
+
+    @Override
+    public String toString() {
+        return "Name= " + getName()
+                + ", Price= " + getPrice()
+                + ", Amount= " + getAmount()
+                + ", Material= " + getMaterial();
     }
 }
