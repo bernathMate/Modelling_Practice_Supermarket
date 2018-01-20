@@ -1,3 +1,5 @@
+package com.codecool;
+
 public class EdibleProduct extends Product {
 
     private int calorie;
@@ -15,5 +17,14 @@ public class EdibleProduct extends Product {
 
     public boolean getIsAlcohol() {
         return isAlcohol;
+    }
+
+    @Override
+    public String toString() {
+        return "Name= " + getName()
+                + ", Price= " + getPrice()
+                + ", Amount= " + getAmount()
+                + ", Calorie= " + getCalorie()
+                + ", Alcoholic= " + (getIsAlcohol() ? "Yes" : "No");
     }
 }
