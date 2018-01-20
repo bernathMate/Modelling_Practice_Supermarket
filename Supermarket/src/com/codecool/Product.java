@@ -1,3 +1,5 @@
+package com.codecool;
+
 public class Product {
 
     private String name;
