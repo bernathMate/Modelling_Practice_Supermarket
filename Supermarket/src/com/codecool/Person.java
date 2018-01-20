@@ -1,3 +1,5 @@
+package com.codecool;
+
 public class Person {
     
     private String fullName;
@@ -22,5 +24,9 @@ public class Person {
 
     public int getAge() {
         return age;
+    }
+
+    public PersonType getPersonType() {
+        return personType;
     }
 }
