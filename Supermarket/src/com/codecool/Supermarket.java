@@ -111,4 +111,26 @@ public class Supermarket {
             e.printStackTrace();
         }
     }
+
+    public Person findPerson(String fullName) {
+        for(Person person: persons) {
+            if (person.getFullName().equals(fullName)) {
+                return person;
+            }
+        }
+        return null;
+    }
+
+    public Product findProduct(String name) {
+        for(Product product: products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void exit() {
+        System.out.println("Have a nice day! Goodbye!");
+    }
 }
