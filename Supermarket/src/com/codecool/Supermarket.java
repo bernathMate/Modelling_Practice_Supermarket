@@ -51,13 +51,13 @@ public class Supermarket {
 
     public Customer createCustomer(PersonType personType) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("What is your full name?");
+        System.out.println("What is her/his full name?");
         String customerFullName = sc.nextLine();
-        System.out.println("What is your gender?");
+        System.out.println("What is her/his gender?");
         String customerGender = sc.nextLine();
-        System.out.println("How old are you?");
+        System.out.println("How old is she/he?");
         int customerAge = sc.nextInt();
-        System.out.println("How much money have you got?");
+        System.out.println("How much money has she/he got?");
         int customerMoney = sc.nextInt();
         Customer person = new Customer(customerFullName, customerGender, customerAge, customerMoney, personType);
         return person;
@@ -65,13 +65,13 @@ public class Supermarket {
 
     public Employee createEmployee(PersonType personType) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("What is your full name?");
+        System.out.println("What is her/his full name?");
         String employeeFullName = sc.nextLine();
-        System.out.println("What is your gender?");
+        System.out.println("What is her/his gender?");
         String employeeGender = sc.nextLine();
-        System.out.println("How old are you?");
+        System.out.println("How old is she/he?");
         int employeeAge = sc.nextInt();
-        System.out.println("What is your position?");
+        System.out.println("What is her/his position?");
         String employeePosition = sc.nextLine();
         Employee person = new Employee(employeeFullName, employeeGender, employeeAge, employeePosition, personType);
         return person;
@@ -92,7 +92,7 @@ public class Supermarket {
         addToPerson(person);
     }
 
-    public void uploadProduct(String csvFile) {
+    public void uploadProducts(String csvFile) {
         String line = "";
         try(BufferedReader br = new BufferedReader(new FileReader("../data/"+csvFile))){
             while((line = br.readLine()) != null){
