@@ -1,6 +1,7 @@
 package com.codecool;
 
 import java.util.*;
+import java.io.*;
 
 public class Main {
 
@@ -10,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         sm = new Supermarket("Penny Market");
         sm.init();
-        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :exit");
+        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :saveAndExit, :exit");
         sm.uploadProducts("EdibleProducts.csv");
         sm.uploadProducts("NonEdibleProducts.csv");
         while (true) {
@@ -32,6 +33,10 @@ public class Main {
 
             } else if (":findProduct".equals(line)) {
                 handleFindProduct();
+            
+            } else if (":saveAndExit".equals(line)) {
+                handleSaveAndExit();
+                break;
             }
         }
         sm.exit();
@@ -122,6 +127,19 @@ public class Main {
             System.out.println("\t\t" + product);
         } else {
             System.out.println("No such product in the supermarket!");
+        }
+    }
+
+    private static void handleSaveAndExit() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("supermarket.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(sm);
+            out.close();
+            fileOut.close();
+            System.out.printf("Supermarket is saved!");
+        } catch (IOException i) {
+            i.printStackTrace();
         }
     }
 }
