@@ -3,7 +3,7 @@ package com.codecool;
 import java.util.*;
 import java.io.*;
 
-public class Supermarket {
+public class Supermarket implements java.io.Serializable {
 
     private String name;
     private Person[] persons;
