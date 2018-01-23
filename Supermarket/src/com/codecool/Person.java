@@ -1,6 +1,6 @@
 package com.codecool;
 
-public class Person {
+public class Person implements java.io.Serializable {
     
     private String fullName;
     private String gender;
