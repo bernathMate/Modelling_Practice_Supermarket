@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         sm = new Supermarket("Penny Market");
         sm.init();
-        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :saveAndExit, :exit");
+        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :loadLatestVersion, :saveAndExit, :exit");
         sm.uploadProducts("EdibleProducts.csv");
         sm.uploadProducts("NonEdibleProducts.csv");
         while (true) {
@@ -34,6 +34,9 @@ public class Main {
             } else if (":findProduct".equals(line)) {
                 handleFindProduct();
             
+            } else if (":loadLatestVersion".equals(line)) {
+                handleLoadLatestSimulation();
+
             } else if (":saveAndExit".equals(line)) {
                 handleSaveAndExit();
                 break;
@@ -137,9 +140,28 @@ public class Main {
             out.writeObject(sm);
             out.close();
             fileOut.close();
-            System.out.printf("Supermarket is saved!");
+            System.out.printf("Supermarket is saved!\n");
         } catch (IOException i) {
             i.printStackTrace();
         }
     }
+
+    private static void handleLoadLatestSimulation() {
+        sm = null;
+        try {
+            FileInputStream fileIn = new FileInputStream("supermarket.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            sm = (Supermarket) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Supermarket class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+    
 }
