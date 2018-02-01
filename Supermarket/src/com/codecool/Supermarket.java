@@ -72,6 +72,7 @@ public class Supermarket implements java.io.Serializable {
         System.out.println("How old is she/he?");
         int employeeAge = sc.nextInt();
         System.out.println("What is her/his position?");
+        sc.nextLine();
         String employeePosition = sc.nextLine();
         Employee person = new Employee(employeeFullName, employeeGender, employeeAge, employeePosition, personType);
         return person;
@@ -116,6 +117,17 @@ public class Supermarket implements java.io.Serializable {
         for(Person person: persons) {
             if (person.getFullName().equals(fullName)) {
                 return person;
+            }
+        }
+        return null;
+    }
+
+    public Customer findCustomer(String fullName) {
+        for(Person person: persons) {
+            if(person instanceof Customer) {
+                if(person.getFullName().equals(fullName)) {
+                    return (Customer)person;
+                }
             }
         }
         return null;
