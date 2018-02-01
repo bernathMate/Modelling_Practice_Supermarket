@@ -1,5 +1,7 @@
 package com.codecool;
 
+import java.util.*;
+
 public class Customer extends Person {
 
     private int money;
@@ -18,6 +20,13 @@ public class Customer extends Person {
 
     public Product[] getShoppingCart() {
         return shoppingCart;
+    }
+
+    public void printShoppingCartContent() {
+        System.out.println("Shopping cart content: ");
+        for (int i = 0; i < shoppingCart.length; i++) {
+            System.out.println("\t" + shoppingCart[i]);
+        }
     }
     
     public void addToShoppingCart(Product product) {
