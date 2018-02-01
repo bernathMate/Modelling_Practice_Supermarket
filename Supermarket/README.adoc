@@ -16,4 +16,4 @@ cd src
 java com.codecool.Main
 ```
 
-then follow the instructions at look at the code :)
+I wanted to write here, that how to work with menu, but i ran out of time... 
