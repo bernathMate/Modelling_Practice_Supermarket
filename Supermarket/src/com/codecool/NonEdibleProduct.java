@@ -8,6 +8,11 @@ public class NonEdibleProduct extends Product {
         super(name, price, amount);
         this.material = material;
     }
+
+    public NonEdibleProduct(NonEdibleProduct nep) {
+        super(nep);
+        this.material = nep.getMaterial();
+    }
     
     public String getMaterial() {
         return material;
