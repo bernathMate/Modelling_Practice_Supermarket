@@ -3,16 +3,15 @@ package com.codecool;
 import java.util.*;
 import java.io.*;
 
-public class Supermarket implements java.io.Serializable {
+public class Supermarket extends ProductStorage {
 
     private String name;
     private Person[] persons;
-    private Product[] products;
 
     public Supermarket(String name) {
+        super();
         this.name = name;
         persons = new Person[0];
-        products = new Product[0];
     }
 
     public void init() {
@@ -27,10 +26,6 @@ public class Supermarket implements java.io.Serializable {
         return persons;
     }
 
-    public Product[] getProducts() {
-        return products;
-    }
-
     public void addToPerson(Person person) {
         Person[] tempArray = new Person[persons.length + 1];
         for(int i = 0; i < persons.length; i++) {
@@ -38,15 +33,6 @@ public class Supermarket implements java.io.Serializable {
         }
         tempArray[tempArray.length - 1] = person;
         persons = tempArray;
-    }
-
-    public void addToProduct(Product product) {
-        Product[] tempArray = new Product[products.length + 1];
-        for(int i = 0; i < products.length; i++) {
-            tempArray[i] = products[i];
-        }
-        tempArray[tempArray.length - 1] = product;
-        products = tempArray;
     }
 
     public Customer createCustomer(PersonType personType) {
@@ -128,15 +114,6 @@ public class Supermarket implements java.io.Serializable {
                 if(person.getFullName().equals(fullName)) {
                     return (Customer)person;
                 }
-            }
-        }
-        return null;
-    }
-
-    public Product findProduct(String name) {
-        for(Product product: products) {
-            if (product.getName().equals(name)) {
-                return product;
             }
         }
         return null;
