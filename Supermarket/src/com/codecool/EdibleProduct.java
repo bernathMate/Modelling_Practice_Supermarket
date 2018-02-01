@@ -11,6 +11,12 @@ public class EdibleProduct extends Product {
         this.isAlcohol = isAlcohol;
     }
 
+    public EdibleProduct(EdibleProduct ep) {
+        super(ep);
+        this.calorie = ep.getCalorie();
+        this.isAlcohol = ep.getIsAlcohol();
+    }
+
     public int getCalorie() {
         return calorie;
     }
