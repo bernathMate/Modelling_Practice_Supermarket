@@ -10,8 +10,21 @@ public class Main {
 
     public static void main(String[] args) {
         sm = new Supermarket("Penny Market");
+        handleStartLoad();
         sm.init();
-        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :shopping, :shoppingCartContent, :loadLatestVersion, :saveAndExit, :exit");
+        System.out.println("Available commands: " +
+            "\n:listPersons" +
+            "\n:listProducts" +
+            "\n:createPerson" +
+            "\n:findPerson" +
+            "\n:findProduct" +
+            "\n:putProductIntoCart" +
+            "\n:takeOutProductFromCart" +
+            "\n:shoppingCartContent" +
+            "\n:pay" +
+            "\n:loadLatestVersion" +
+            "\n:saveAndExit" +
+            "\n:exit\n");
         sm.uploadProducts("EdibleProducts.csv");
         sm.uploadProducts("NonEdibleProducts.csv");
         while (true) {
@@ -34,21 +47,34 @@ public class Main {
             } else if (":findProduct".equals(line)) {
                 handleFindProduct();
             
-            } else if (":loadLatestVersion".equals(line)) {
-                handleLoadLatestSimulation();
+            } else if (":putProductIntoCart".equals(line)) {
+                putProductIntoCart();
 
-            } else if (":shopping".equals(line)) {
-                shopping();
+            } else if (":takeOutProductFromCart".equals(line)) {
+                takeOutProductFromCart();
 
             } else if (":shoppingCartContent".equals(line)) {
                 shoppingCartContent();
 
+            } else if (":pay".equals(line)) {
+                pay();
+
             } else if (":saveAndExit".equals(line)) {
                 handleSaveAndExit();
                 break;
+            } else {
+                System.out.println("Invalid command, please give a correct command!");
             }
         }
         sm.exit();
+    }
+
+    private static void handleStartLoad() {
+        System.out.println("Do you want to load the latest version? (y/n)");
+        String yesOrNo = sc.nextLine();
+        if(yesOrNo.equals("y")) {
+            handleLoadLatestSimulation();
+        }
     }
 
     private static void handleListPersons() {
@@ -139,29 +165,32 @@ public class Main {
         }
     }
 
-    private static Customer addProductToShoppingCart(Customer customer) {
+    private static void addProductToShoppingCart(ProductStorage from, ProductStorage to) {
         System.out.println("Enter the product's name:");
         String productName = sc.nextLine();
 
-        Product product = sm.findProduct(productName);
-        Product chosenProduct = Product.copyProduct(product);
-        
-        if (product != null) {
-            System.out.println("Okey, now enter how many would you like to buy:");
-            int productAmount = sc.nextInt();
-            if (productAmount <= product.getAmount()) {
-                product.decreaseAmount(productAmount);
-                chosenProduct.setAmount(productAmount);
-                customer.addToShoppingCart(chosenProduct);
-                System.out.println("Okey, it's done!");
-                return customer;
-            } else {
-                System.out.println("There are only " + product.getAmount() + " " + product.getName() + " in the supermarket");
-            }
-        } else {
-            System.out.println("No such product in the supermarket!");
+        Product product = from.findProduct(productName);
+        if (product == null) {
+            System.out.println("No such product in there!");
+            return;
         }
-        return null;
+
+        Product chosenProduct = to.findProduct(productName);
+        if (chosenProduct == null) {
+            chosenProduct = Product.copyProduct(product);
+            chosenProduct.setAmount(0);
+            to.addToProduct(chosenProduct);
+        }
+        
+        System.out.println("Okey, now enter how many:");
+        int productAmount = sc.nextInt();
+        if (productAmount <= product.getAmount()) {
+            product.decreaseAmount(productAmount);
+            chosenProduct.increaseAmount(productAmount);
+            System.out.println("Okey, it's done!");
+        } else {
+            System.out.println("There are only " + product.getAmount() + " " + product.getName() + " in there");
+        }
     }
 
     public static void shoppingCartContent() {
@@ -176,16 +205,44 @@ public class Main {
         }
     }
 
-    public static void shopping() {
+    public static void putProductIntoCart() {
         System.out.println("Enter the customer's name:");
         String customerName = sc.nextLine();
 
         Person customer = sm.findPerson(customerName);
         if (customer != null) {
-            customer = addProductToShoppingCart((Customer)customer);
+            addProductToShoppingCart(sm, customer);
         } else {
             System.out.println("No such customer in the supermarket!");
         }
+    }
+
+    public static void takeOutProductFromCart() {
+        System.out.println("Enter the customer's name:");
+        String customerName = sc.nextLine();
+
+        Person customer = sm.findPerson(customerName);
+        if (customer != null) {
+            addProductToShoppingCart(customer, sm);
+        } else {
+            System.out.println("No such customer in the supermarket!");
+        }
+    }
+
+    public static Customer pay() {
+        System.out.println("Enter the customer's name:");
+        String customerName = sc.nextLine();
+
+        Customer customer = sm.findCustomer(customerName);
+        if ((customer != null) && (customer.costOfProducts() <= customer.getMoney())) {
+            customer.decreaseMoney(customer.costOfProducts());
+            customer.setProducts(new Product[0]);
+            System.out.println("Your payment was succesfull! Thanks!");
+            return customer;
+        } else {
+            System.out.println("No such customer in the supermarket!");
+        }
+        return null;
     }
 
     private static void handleSaveAndExit() {
