@@ -1,6 +1,6 @@
 package com.codecool;
 
-public class Person implements java.io.Serializable {
+public class Person extends ProductStorage implements java.io.Serializable {
     
     private String fullName;
     private String gender;
@@ -8,6 +8,7 @@ public class Person implements java.io.Serializable {
     private PersonType personType;
 
     public Person(String fullName, String gender, int age, PersonType personType) {
+        super();
         this.fullName = fullName;
         this.gender = gender;
         this.age = age;
