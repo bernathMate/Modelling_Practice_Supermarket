@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         sm = new Supermarket("Penny Market");
         sm.init();
-        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :loadLatestVersion, :saveAndExit, :exit");
+        System.out.println("Available commands: :listPersons, :listProducts, :createPerson, :findPerson, :findProduct, :shopping, :shoppingCartContent, :loadLatestVersion, :saveAndExit, :exit");
         sm.uploadProducts("EdibleProducts.csv");
         sm.uploadProducts("NonEdibleProducts.csv");
         while (true) {
@@ -36,6 +36,12 @@ public class Main {
             
             } else if (":loadLatestVersion".equals(line)) {
                 handleLoadLatestSimulation();
+
+            } else if (":shopping".equals(line)) {
+                shopping();
+
+            } else if (":shoppingCartContent".equals(line)) {
+                shoppingCartContent();
 
             } else if (":saveAndExit".equals(line)) {
                 handleSaveAndExit();
@@ -130,6 +136,55 @@ public class Main {
             System.out.println("\t\t" + product);
         } else {
             System.out.println("No such product in the supermarket!");
+        }
+    }
+
+    private static Customer addProductToShoppingCart(Customer customer) {
+        System.out.println("Enter the product's name:");
+        String productName = sc.nextLine();
+
+        Product product = sm.findProduct(productName);
+        Product chosenProduct = Product.copyProduct(product);
+        
+        if (product != null) {
+            System.out.println("Okey, now enter how many would you like to buy:");
+            int productAmount = sc.nextInt();
+            if (productAmount <= product.getAmount()) {
+                product.decreaseAmount(productAmount);
+                chosenProduct.setAmount(productAmount);
+                customer.addToShoppingCart(chosenProduct);
+                System.out.println("Okey, it's done!");
+                return customer;
+            } else {
+                System.out.println("There are only " + product.getAmount() + " " + product.getName() + " in the supermarket");
+            }
+        } else {
+            System.out.println("No such product in the supermarket!");
+        }
+        return null;
+    }
+
+    public static void shoppingCartContent() {
+        System.out.println("Enter the person's full name:");
+        String personFullName = sc.nextLine();
+
+        Customer customer = sm.findCustomer(personFullName);
+        if (customer != null) {
+            customer.printShoppingCartContent();
+        } else {
+            System.out.println("No such customer in the supermarket!");
+        }
+    }
+
+    public static void shopping() {
+        System.out.println("Enter the customer's name:");
+        String customerName = sc.nextLine();
+
+        Person customer = sm.findPerson(customerName);
+        if (customer != null) {
+            customer = addProductToShoppingCart((Customer)customer);
+        } else {
+            System.out.println("No such customer in the supermarket!");
         }
     }
 
